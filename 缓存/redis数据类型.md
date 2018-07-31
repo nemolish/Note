@@ -1,5 +1,5 @@
-#### redis数据类型
-##### 数据结构体
+### redis数据类型
+#### 数据结构体
 　Redis使用前面说的五大数据类型来表示键和值，每次在Redis数据库中创建一个键值对时，至少会创建两个对象，一个是键对象，一个是值对象，而Redis中的每个对象都是由 redisObject 结构来表示：
 ```c
 typedef struct redisObject{
@@ -17,7 +17,7 @@ typedef struct redisObject{
 }robj
 ```
 
-##### 数据类型
+#### 数据类型
 对象的type属性记录了对象的类型，这个类型就是前面讲的五大数据类型，
 可以通过如下命令来判断对象类型：
 ```redis
