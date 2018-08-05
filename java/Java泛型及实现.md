@@ -1,9 +1,37 @@
-### Java泛型的实现
+### Java泛型及实现
 [TOC]
+
 #### 泛型定义
 
 泛型编程是一种通过参数化的方式将数据处理与数据类型解耦的技术，通过对数据类型施加约束（比如Java中的有界类型）来保证数据处理的正确性，又称参数类型或参数多态性。 
 泛型最著名的应用就是容器，C++的STL、Java的Collection Framework。
+***范型程序设计***意味着编写的代码可以被不同类型的对象使用，典型的例子就是ArrayList可以聚集不同的类对象。
+
+#### 范型出现之前
+在Java增加范型之前，范型程序设计使用继承的方式实现，ArrayList内只维护着一个Object数组:
+```java
+public class ArrayList {
+    private Object elementData;
+    ...
+    public Object get(int i){...};
+    public void set(Object o){...};
+}
+```
+
+这样的实现有两个问题：
+* 获取指时必须做强制类型转换
+```java
+ArrayList al = new ArrayList();
+al.set(new String("test"));
+String t = (String)al.get(0); //强制类型转换
+```
+
+* 没有错误检查，可以向数组列表添加任何类型的对象
+```java
+ArrayList al = new ArrayList();
+al.set(new String("test"));
+al.set(new Integer(1));       //显然我们不希望如此，但是没有类型检查导致容易犯错
+```
 
 ####  泛型的实现方式
 
