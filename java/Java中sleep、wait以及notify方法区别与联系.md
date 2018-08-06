@@ -19,10 +19,10 @@ Thread类中的sleep方法：
  * does not lose ownership of any monitors. 
  */  
 public static native void sleep(long millis) throws InterruptedException; 
-``` 
+```
 
 解析sleep方法的源码注释：
-调用sleep方法可以让当前正在运行的线程进入睡眠状态，即暂时停止运行指定的单位时间。并且该线程在睡眠期间不会释放对象锁。
+调用sleep方法可以让当前正在运行的线程进入睡眠状态，即暂时停止运行指定的单位时间。并且该线程在睡眠期间**不会释放对象锁**。
 sleep方法的目的是让当前线程暂停运行一段时间，而与对象锁相关的信息无影响，如果执行sleep方法时是处于持有对象锁的状态，那么睡眠时依然持有对象锁，如果执行sleep方法时不是处于持有对象锁的状态，睡眠期间也不会持有对象锁。
 
 #### wait方法
@@ -59,7 +59,7 @@ Object类中的wait方法：
  * a monitor. 
  */  
 public final native void wait(long timeout) throws InterruptedException;  
-``` 
+```
 
 解析wait方法的源码注释：
 调用wait方法可以让当前线程（即调用object.wait方法的那个线程）进入等待唤醒状态，该线程会处于等待唤醒状态直到另一个线程调用了object对象的notify方法或者notifyAll方法。该方法没有形参，相当于调用了参数为0的wait（long timeout）方法。
@@ -105,7 +105,7 @@ Object类中的notify方法：
  * @see        java.lang.Object#wait() 
  */  
 public final native void notify(); 
-``` 
+```
 解析notify方法的源码注释：
 举例来解释，比方说多线程下，object对象是共享对象，那么对object对象的操作可以放在synchronized(object)同步块中，当线程A在同步块中执行object.wait方法，线程A就进入了等待状态。这时在线程Q中的同步块中执行object.notify()，就能唤醒线程A。另一种情形，假如线程ABC都执行了object.wait方法，那么当线程Q中执行了object.notify()，则只能唤醒其中一个，至于具体是哪一个，是任意的。
 调用notify唤醒的线程，处于等待获取锁状态，且这个被唤醒的线程，相对于其他在等待获取锁的线程，没有任何特权，也没有任何劣势，即公平竞争。
