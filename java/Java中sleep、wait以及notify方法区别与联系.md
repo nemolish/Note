@@ -116,7 +116,7 @@ notifyAll方法与notify方法很类似，不同之处是notify方法唤醒任�
 
 #### wait方法和sleep方法的对比
 
- 正如方法定义所描述，这两个方法都是native方法，且都会抛出InterruptedException，其中sleep方法是类方法，而wait方法是实例方法。
+正如方法定义所描述，这两个方法都是native方法，且都会抛出InterruptedException，其中sleep方法是类方法，而wait方法是实例方法。
 sleep方法是Thread类的方法，而wait方法是Object类的方法，由于一切类都是继承自Object类，因此Thread类中也有wait方法。
 wait方法和sleep方法都可以通过interrupt方法打断线程的暂停状态，从而使得线程立刻抛出IntterruptedException。
 sleep方法的作用是让当前线程暂停指定的时间，无关对象锁；而wait方法则是用于多个线程间的信息交互，与对象锁有关。
