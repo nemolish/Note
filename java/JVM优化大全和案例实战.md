@@ -12,7 +12,7 @@ Permanent 即 持久代（Permanent Generation），主要存放的是Java类定
 
 Heap = { Old + NEW = {Eden, from, to} }，Old 即 年老代（Old Generation），New 即 年轻代（Young Generation）。年老代和年轻代的划分对垃圾收集影响比较大。
 
-**注：jdk8已移除持久代（Permanent Generation）**
+**注：jdk8已移除持久代（Permanent Generation**）并引入了**元空间**， 元空间的本质和永久代类似，都是对JVM规范中方法区的实现。不过元空间与永久代之间最大的区别在于：元空间并不在虚拟机中，而是使用本地内存**。因此，默认情况下，元空间的大小仅受本地内存限制，但可以通过参数来指定元空间的大小**。
 
 ##### 年轻代
 
@@ -295,3 +295,27 @@ PS Perm Generation
    41.440796365543285% used
 ```
 结果是比较健康的。
+
+
+
+
+
+**永久代为什么被移出HotSpot JVM了？**
+
+　　1、由于Permanent Generation内存经常不够用或发生内存泄露，引发恼人的java.lang.OutOfMemoryError: PermGen （在Java Web开发中非常常见）。
+
+　　2、移除Permanent Generation可以促进HotSpot JVM与JRockit VM的融合，因为JRockit没有永久代。
+
+　　3、对永久代进行调优是很困难的。
+
+ 
+
+**为什么要引入元空间：**
+
+　　1、字符串存在永久代中，容易出现性能问题和内存溢出。
+
+　　2、类及方法的信息等比较难确定其大小，因此对于永久代的大小指定比较困难，太小容易出现永久代溢出，太大则容易导致老年代溢出。
+
+　　3、永久代会为 GC 带来不必要的复杂度，并且回收效率偏低。
+
+　　4、Oracle 可能会将HotSpot 与 JRockit 合二为一。
