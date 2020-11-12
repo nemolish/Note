@@ -1,5 +1,7 @@
 ### vim
 
+![vim-cmd](vim-cmd.png)
+
 #### 插件
 
 
